@@ -14,8 +14,7 @@ import java.util.Arrays;
  */
 public class GremlinRunner {
 //if the size is even the maze will not be nively contained 
-	static final int size = utility.getIntFromUser("Enter an odd number for size"
-									+ "\n(from 9-25) ideally");
+	static int size;
 public static int numberOfGremlins=0;
 public static ArrayList<Gremlin> gremlins=new ArrayList();
 //"w" is the 4th dimension
@@ -35,6 +34,13 @@ public static ArrayList<Gremlin> gremlins=new ArrayList();
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
+playGremlins();
+	}
+	/**
+		* the body of the game
+		*/
+	public static void playGremlins(){
+		fixValues();
 		make4dMaze();
 		maze[0][position[1]][position[2]][position[3]] = 2;
 		makeGlade();
@@ -45,7 +51,8 @@ public static ArrayList<Gremlin> gremlins=new ArrayList();
 		while (!(position[1]==size-2&&position[2]==size-2&&position[3]==size-2)&&
 										alive) {
 			dispPosition(window);
-			//dispWholeMaze();
+			//dispWholeMaze();//if the maze is really small this method is here
+			just because
 			System.out.println(Arrays.toString(position));
 			char move = ' ';
 			try {
@@ -62,8 +69,12 @@ if(maze[position[0]][position[1]][position[2]][position[3]]!=2){
 		if(!alive){
 			System.out.println("A gremlin slaughtered you");
 		}else{
-			System.out.println("YOu are a true warrior");
+			System.out.println("You are a true warrior");
 			System.out.println("You survived the labyrinth");
+		}
+		if(utility.
+										getStringFromUser("Would you like to play again(y/n)").equals("y")){
+			playGremlins();
 		}
 	}
 /**
@@ -232,7 +243,8 @@ System.out.println("\n");
 			} else {
 				//just an excuse to go to the exception area so that the move isnt 
 				// if the square is occupied
-				int i = 0 / 0;
+			maze[0][tempPosition[1]][tempPosition[2]][tempPosition[3]] = 2;
+			position = tempPosition.clone();
 			}
 
 		} catch (Exception e) {
@@ -242,7 +254,7 @@ System.out.println("\n");
 		}
 	}
 /**
-	* prints to console the area around the player "☺"
+	* prints to console the area around the player "P"
 	* @param d render distance around it 
 	*/
 	public static void dispPosition(int d) {
@@ -291,7 +303,7 @@ System.out.println("\n");
 	}
 
 	public static void makeGlade() {
-int d=1;//gladeSize
+int d=1;//glade "radius"
 		for (int z = size/2 - d; z <= size/2 + d; z++) {
 			for (int y = size/2 - d; y <= size/2 + d; y++) {
 				for (int x = size/2 - d; x <= size/2 + d; x++) {
@@ -311,7 +323,7 @@ maze[0][z][y][x]=1;
 	public static void makeGremlins() {
 		int gremlinDensity=utility.getIntFromUser(
 										"How many gremlins per hundred squares "
-										+ "do you want\n recommended is 18");
+										+ "do you want\nrecommended is 18");
 		for(byte w=0;w<wSize;w++) {
 			for(byte z=0;z<xSize;z++){
 				for(byte y=0;y<ySize;y++){
@@ -325,10 +337,38 @@ maze[0][z][y][x]=1;
 			}
 				}
 	}
-
+/**
+	* Has each gremlin do its thing 
+	*/
 	public static void doGremlins() {
 		for(Gremlin scaryGremlin:gremlins){
 			scaryGremlin.takeTurn();
 		}
+	}
+
+	/**
+	 * Fixes the global variable values
+	 */
+	public static void fixValues() {
+size = utility.getIntFromUser("Enter an odd number for size"
+									+ "\n(from 9-25) ideally");
+ numberOfGremlins=0;
+	gremlins=new ArrayList(1);
+//"w" is the 4th dimension if used
+	wSize = 1;
+	//these are the dimensions
+	zSize = size;
+	ySize = size;
+	xSize = size;
+	//start positions
+position[0] = 0;
+position[1]=1;
+position[2]=1;
+position[3]=1;
+	//4d maze
+	maze = new byte[wSize][zSize][ySize][xSize];
+	//the nodes for use in the algorithm to make a perfect maze
+nodes = new ArrayList(1);
+
 	}
 }
