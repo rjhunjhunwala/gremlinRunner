@@ -1,0 +1,207 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package gremlinrunner;
+
+/**
+ *
+ * @author rohan
+ */
+public class Gremlin {
+	//these are the gremlins running around the map
+	/**
+	 * The amount of steps a gremlin will move
+	 */
+	public static final byte gremlinRange = 1;
+
+
+private	byte[] coord;
+
+	Gremlin(byte x, byte y, byte z) {
+		byte w = 0; //only 3d for now
+		coord = new byte[4];
+		coord[0] = w;
+		coord[1] = z;
+		coord[2] = y;
+		coord[3] = x;
+		GremlinRunner.maze[w][z][y][x] = (byte) 127;
+	}
+
+
+	/**
+	 * This gremlin walk in some random orthagonal direction
+	 */
+	public void move() {
+		int counter = 0;
+		int choice = 8;
+		movementBlock:
+		for (int i = 0; i < 12; i++) {
+			try {
+				choice = utility.getRandom(8);
+				if (choice == 0) {
+					if (GremlinRunner.maze[coord[0] + 1][coord[1]][coord[2]][coord[3]] == 1) {
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						GremlinRunner.maze[coord[0] + 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
+						coord[0] += 1;
+						break movementBlock;
+					}
+				} else if (choice == 1) {
+					if (GremlinRunner.maze[coord[0] - 1][coord[1]][coord[2]][coord[3]] == 1) {
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						GremlinRunner.maze[coord[0] - 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
+						coord[0] -= 1;
+											break movementBlock;
+					}
+				} else if (choice == 2) {
+					if (GremlinRunner.maze[coord[0]][coord[1] + 1][coord[2]][coord[3]] == 1) {
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						GremlinRunner.maze[coord[0]][coord[1] + 1][coord[2]][coord[3]] = (byte) 127;
+						coord[1] += 1;
+											break movementBlock;
+					}
+				} else if (choice == 3) {
+					if (GremlinRunner.maze[coord[0]][coord[1] - 1][coord[2]][coord[3]] == 1) {
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						GremlinRunner.maze[coord[0]][coord[1] - 1][coord[2]][coord[3]] = (byte) 127;
+						coord[1] -= 1;
+											break movementBlock;
+					}
+				} else if (choice == 4) {
+					if (GremlinRunner.maze[coord[0]][coord[1]][coord[2] + 1][coord[3]] == 1) {
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2] + 1][coord[3]] = (byte) 127;
+						coord[2] += 1;
+											break movementBlock;
+					}
+				} else if (choice == 5) {
+					if (GremlinRunner.maze[coord[0]][coord[1]][coord[2] - 1][coord[3]] ==1) {
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2] - 1][coord[3]] = (byte) 127;
+						coord[2] -= 1;
+											break movementBlock;
+					}
+				} else if (choice == 6) {
+					if (GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] + 1] == 1) {
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] + 1] = 127;
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						coord[3] += 1;
+											break movementBlock;
+					}
+				} else if (choice == 7) {
+					if (GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] - 1] == 1) {
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] - 1] = (byte) 127;
+						coord[3] -= 1;
+											break movementBlock;
+					}
+				} else if (choice == 8) {//wait a second there are no choices left
+					System.out.println("Something bad happened ouch!");
+				}
+			} catch (Exception e) {/*gotcha*/
+//cant afford to go off the map now can we
+
+			}
+			choice++;
+			choice %= 8;
+		}
+	}
+
+	/**
+	 * Gremlin does its attack
+	 */
+	public void doAttack() {
+		try {
+		} catch (Exception easdsa) {
+		}
+		try {
+			if (GremlinRunner.maze[coord[0] + 1][coord[1]][coord[2]][coord[3]] == 2) {
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				GremlinRunner.maze[coord[0] + 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
+				coord[0] += 1;
+			}
+		} catch (Exception easdsa) {
+		}
+		try {
+			if (GremlinRunner.maze[coord[0] - 1][coord[1]][coord[2]][coord[3]] == 2) {
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				GremlinRunner.maze[coord[0] - 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
+				coord[0] -= 1;
+			}
+		} catch (Exception easdsa) {
+		}
+
+		try {
+			if (GremlinRunner.maze[coord[0]][coord[1] + 1][coord[2]][coord[3]] == 2) {
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				GremlinRunner.maze[coord[0]][coord[1] + 1][coord[2]][coord[3]] = (byte) 127;
+				coord[1] += 1;
+			}
+		} catch (Exception easdsa) {
+		}
+
+		try {
+			if (GremlinRunner.maze[coord[0]][coord[1] - 1][coord[2]][coord[3]] == 2) {
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				GremlinRunner.maze[coord[0]][coord[1] - 1][coord[2]][coord[3]] = (byte) 127;
+				coord[1] -= 1;
+			}
+		} catch (Exception easdsa) {
+		}
+
+		try {
+			if (GremlinRunner.maze[coord[0]][coord[1]][coord[2] + 1][coord[3]] == 2) {
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2] + 1][coord[3]] = (byte) 127;
+				coord[2] += 1;
+			}
+		} catch (Exception easdsa) {
+		}
+
+		try {
+			if (GremlinRunner.maze[coord[0]][coord[1]][coord[2] - 1][coord[3]] == 2) {
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2] - 1][coord[3]] = (byte) 127;
+				coord[2] -= 1;
+			}
+		} catch (Exception easdsa) {
+		}
+
+		try {
+			if (GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] + 1] == 2) {
+							GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] + 1] = 127;
+
+				coord[3] += 1;
+			}
+		} catch (Exception easdsa) {
+		}
+
+		try {
+			if (GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] - 1] == 2) {
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] - 1] = (byte) 127;
+				coord[3] -= 1;
+			}
+		} catch (Exception easdsa) {
+		}
+
+	}
+/**
+	*Every turn the Gremlin tries to attack (if it can) and then moves
+	* it gets sent to a fictional location if its dead 
+	*/
+	public void takeTurn() {
+		try{
+		if(GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]]!=127){
+			//im dead 
+			byte[] coordsDead={-127,-127,-127,-127};
+			coord=coordsDead.clone();
+		}
+		doAttack();
+		move();
+	}
+	catch(Exception dead){}
+}
+}
