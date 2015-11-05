@@ -65,58 +65,6 @@ Random r = new Random();
 		return (sc.nextInt());
 	}
 
-	/**
-	 *
-	 * @param nums array to be reverse
-	 * @return reversed array
-	 */
-	public static int[] reverse(int[] nums) {
-		int[] reversed = new int[nums.length];
-		for (int i = 0; i < nums.length; i++) {
-			reversed[i] = nums[nums.length - 1 - i];
-		}
-		return reversed;
-	}
-
-	/**
-	 * Removes duplicates
-	 *
-	 * @param arr is an array to remove duplicates
-	 * @return an array without duplicates
-	 */
-	public static int[] removeDuplicates(int[] arr) {
-
-		int end = arr.length;
-
-		for (int i = 0; i < end; i++) {
-			for (int j = i + 1; j < end; j++) {
-				if (arr[i] == arr[j]) {
-					int shiftLeft = j;
-					for (int k = j + 1; k < end; k++, shiftLeft++) {
-						arr[shiftLeft] = arr[k];
-					}
-					end--;
-					j--;
-				}
-			}
-		}
-
-		int[] whitelist = new int[end];
-		for (int i = 0; i < end; i++) {
-			whitelist[i] = arr[i];
-		}
-		return whitelist;
-	}
-	public static void makeGarbage(){
-String pad="";
-for(int j=0;j<1000;j++){
-for(int i=0;i<1000;i++){		
-int index = getRandom(garbage.length());
-pad+=garbage.charAt(index);
-}
-file.writeToFile(j+"",pad);
-pad="";
-}
 }
 
 	
