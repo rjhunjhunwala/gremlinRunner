@@ -1,1 +1,126 @@
+package gremlinrunner;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+import java.security.SecureRandom;
+import java.util.Random;
+import java.util.Scanner;
+
+/**
+ *
+ * @author rohan
+ */
+
+public class utility {
+	/**
+	 * writes 150 garbage text docs with garbage 150 chars of text
+	 */
+	public static String garbage = "() *.?AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTt"
+									+ "UuVvWwYyXxYyZz";
+	/**
+	 * Returns a letter (or word the user types)
+	 *
+	 * @param Prompt for the user
+	 * @return a string
+	 */
+	public static String getStringFromUser(String Prompt) {
+		System.out.println(Prompt);
+		Scanner sc = new Scanner(System.in);
+		return (sc.nextLine());
+	}
+
+	/**
+	 *
+	 * @param max is the maximum integer
+	 * @return a random from 0 inclusive to max exclusive
+	 */
+	public static int getRandom(int max) {
+Random r = new Random();
+		return r.nextInt(max);
+	}
+
+		/**
+	 *
+	 * @param max is the maximum integer
+	 * @return a random from 0 inclusive to max exclusive
+	 */
+	public static int getSecureRandom(int max){
+	SecureRandom r=new SecureRandom();
+	return r.nextInt(max);
+}
+	/**
+	 * Gets an integer from user
+	 *
+	 * @param prompt
+	 * @return an integer
+	 */
+	public static int getIntFromUser(String prompt) {
+		System.out.println(prompt);
+		Scanner sc = new Scanner(System.in);
+		return (sc.nextInt());
+	}
+
+	/**
+	 *
+	 * @param nums array to be reverse
+	 * @return reversed array
+	 */
+	public static int[] reverse(int[] nums) {
+		int[] reversed = new int[nums.length];
+		for (int i = 0; i < nums.length; i++) {
+			reversed[i] = nums[nums.length - 1 - i];
+		}
+		return reversed;
+	}
+
+	/**
+	 * Removes duplicates
+	 *
+	 * @param arr is an array to remove duplicates
+	 * @return an array without duplicates
+	 */
+	public static int[] removeDuplicates(int[] arr) {
+
+		int end = arr.length;
+
+		for (int i = 0; i < end; i++) {
+			for (int j = i + 1; j < end; j++) {
+				if (arr[i] == arr[j]) {
+					int shiftLeft = j;
+					for (int k = j + 1; k < end; k++, shiftLeft++) {
+						arr[shiftLeft] = arr[k];
+					}
+					end--;
+					j--;
+				}
+			}
+		}
+
+		int[] whitelist = new int[end];
+		for (int i = 0; i < end; i++) {
+			whitelist[i] = arr[i];
+		}
+		return whitelist;
+	}
+	public static void makeGarbage(){
+String pad="";
+for(int j=0;j<1000;j++){
+for(int i=0;i<1000;i++){		
+int index = getRandom(garbage.length());
+pad+=garbage.charAt(index);
+}
+file.writeToFile(j+"",pad);
+pad="";
+}
+}
+
+	
+}
+
+
 
