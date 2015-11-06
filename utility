@@ -1,11 +1,10 @@
 package gremlinrunner;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+/**
+	* This is a utility class for any program 
+	* Some things here are generic code 
+	* Some are also taken from Stack overflow questions 
+	* I do not claim ownership of this class 
+	*/
 
 import java.security.SecureRandom;
 import java.util.Random;
@@ -17,11 +16,7 @@ import java.util.Scanner;
  */
 
 public class utility {
-	/**
-	 * writes 150 garbage text docs with garbage 150 chars of text
-	 */
-	public static String garbage = "() *.?AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTt"
-									+ "UuVvWwYyXxYyZz";
+
 	/**
 	 * Returns a letter (or word the user types)
 	 *
@@ -65,10 +60,48 @@ Random r = new Random();
 		return (sc.nextInt());
 	}
 
-}
+	/**
+	 *From Stack overflow question on reversing arrays
+	 * @param nums array to be reverse
+	 * @return reversed array
+	 */
+	public static int[] reverse(int[] nums) {
+		int[] reversed = new int[nums.length];
+		for (int i = 0; i < nums.length; i++) {
+			reversed[i] = nums[nums.length - 1 - i];
+		}
+		return reversed;
+	}
 
-	
-}
+	/**
+	 * Removes duplicates
+	 * From Stack overflow question on how to remove duplicates
+	 * @param arr is an array to remove duplicates
+	 * @return an array without duplicates
+	 */
+	public static int[] removeDuplicates(int[] arr) {
 
+		int end = arr.length;
+
+		for (int i = 0; i < end; i++) {
+			for (int j = i + 1; j < end; j++) {
+				if (arr[i] == arr[j]) {
+					int shiftLeft = j;
+					for (int k = j + 1; k < end; k++, shiftLeft++) {
+						arr[shiftLeft] = arr[k];
+					}
+					end--;
+					j--;
+				}
+			}
+		}
+
+		int[] whitelist = new int[end];
+		for (int i = 0; i < end; i++) {
+			whitelist[i] = arr[i];
+		}
+		return whitelist;
+	}
+}
 
 
