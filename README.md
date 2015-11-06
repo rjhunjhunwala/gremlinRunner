@@ -6,3 +6,6 @@ if you finish a move next to a gremlin you die (the gremlin kills you)
 if you move into a gremlin you kill it
 the gremlins are ! points 
 the finish line is in the bottom corner and is an f 
+NOTE 
+- In the code there are many references to the fourth dimension. The framework supports the fourth dimension although it would simply be impractical to use it
+- The intent was to be a four dimensional game but just three dimensions is tough to display and conceptualize
