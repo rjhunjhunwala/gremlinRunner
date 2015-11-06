@@ -13,41 +13,88 @@ import java.util.Arrays;
 	* @author rohan
 	*/
 public class GremlinRunner {
-//if the size is even the maze will not be nively contained
-	static int size;
+/**
+	* distance the user can see 
+ * Recommended size 2
+	*/
+		public static int window;
+/**
+	* if the size is even the maze will not be nicely contained by walls
+	* Also the "glade" in the middle will be off center. 
+	* Not a big deal because the program automatically renders positions off the 
+	* side of the maze as walls
+	* recommended size 11
+	*/
+	 public static int size;
 	//if the user wants gremlins this is true
-	public static boolean areGremlins;
+	/**
+		* If gremlins are enabled the recommended setting is yes
+		*/
+		public static boolean areGremlins;
+		/**
+			* This is the number of gremlins in the maze
+			* currently unused but may be used later
+			*/
 	public static int numberOfGremlins=0;
+	/**
+		* An array to hold the Gremlins in the map
+		*/
 	public static ArrayList<Gremlin> gremlins=new ArrayList();
-//"w" is the 4th dimension
-	static int wSize = 1;
+/**
+	* "w" is the 4th dimension
+	* not yet implemented
+	*/
+	private static int wSize = 1;
 	//these are the dimensions
-	static int zSize = size;
-	static int ySize = size;
-	static int xSize = size;
-	//start positions
-	static byte[] position = {0, 1, 1, 1};
-	//4d maze
+	/**
+		* The size of the z dimension
+		*/
+	public static int zSize = size;
+	/**
+		* The size of the y dimension
+		*/
+public	static int ySize = size;
+	/**
+		* The size of the x dimension
+		*/
+public	static int xSize = size;
+	/**
+		* The dimensions are by default all the same. I.e the maze is a cube
+		*/
+	/**
+		* start position for the human and the maze generator
+		*/
+	public static byte[] position = {0, 1, 1, 1};
+	/**
+		* 4d maze
+	 */
 	public static byte[][][][] maze = new byte[wSize][zSize][ySize][xSize];
-	//the nodes for use in the algorithm to make a perfect maze
-	static ArrayList<byte[]> nodes = new ArrayList(1);
+	/**
+		* the nodes for use in the algorithm to make a perfect maze
+		* A place for the program to store the places its carved passages to
+		* This way it can recursively backtrack to them when needed 
+	 */
+	private static ArrayList<byte[]> nodes = new ArrayList(1);
+	/**
+		* The density of the gremlin population i.e gremlins/100 squares
+		*/
+	public static int gremlinDensity;
 	
 	/**
 		* @param args the command line arguments
 		*/
 	public static void main(String[] args) {
-		playGremlins();
+		playGame();
 	}
 	/**
 		* the body of the game
 		*/
-	public static void playGremlins(){
+	public static void playGame(){
 		fixValues();
 		make4dMaze();
 		maze[0][position[1]][position[2]][position[3]] = 2;
 		makeGlade();
 		makeGremlins();
-		int window=utility.getIntFromUser("Render distance?\nrecommended is 2");
 		maze[0][size-2][size-2][size-2]=3;
 		boolean alive=true;
 		while (!(position[1]==size-2&&position[2]==size-2&&position[3]==size-2)&&
@@ -76,7 +123,7 @@ public class GremlinRunner {
 		}
 		if(utility.
 										getStringFromUser("Would you like to play again(y/n)").equals("y")){
-			playGremlins();
+			playGame();
 		}
 	}
 	/**
@@ -257,22 +304,26 @@ public class GremlinRunner {
 	}
 	/**
 		* prints to console the area around the player "P"
-		* @param d render distance around it
+		* @param renderDistance render distance around it
 		*/
-	public static void dispPosition(int d) {
-		for (int z = position[1] - d; z <= position[1] + d; z++) {
-			for (int y = position[2] - d; y <= position[2] + d; y++) {
-				for (int x = position[3] - d; x <= position[3] + d; x++) {
-					String symbol = "[!]"; //its a gremlin to be implemented
+	public static void dispPosition(int renderDistance) {
+		for (int z = position[1] - renderDistance; 
+										z <= position[1] + renderDistance; z++) {
+			for (int y = position[2] - renderDistance; 
+											y <= position[2] + renderDistance; y++) {
+				for (int x = position[3] - renderDistance; 
+												x <= position[3] + renderDistance; x++) {
+					String symbol = "[!]"; //its a gremlin unless its one of the others
+					// a gremlin has code 127
 					try {
 						if (maze[0][z][y][x] == 1) {
-							symbol = "[ ]";
+							symbol = "[ ]";//pasage
 						} else if (maze[0][z][y][x] == 2) {
-							symbol = "[P]";
+							symbol = "[P]";//player
 						} else if (maze[0][z][y][x] == 0) {
-							symbol = "[W]";
+							symbol = "[W]";//wall
 						}else if(maze[0][z][y][x]==3){
-							symbol="[F]";
+							symbol="[F]";//Finish line
 						}
 					} catch (Exception e) {
 // Render walls all around the maze
@@ -332,9 +383,6 @@ public class GremlinRunner {
 		*/
 	public static void makeGremlins() {
 		if(areGremlins){
-		int gremlinDensity=utility.getIntFromUser(
-										"How many gremlins per hundred squares "
-																		+ "do you want\nrecommended is 18");
 		for(byte w=0;w<wSize;w++) {
 			for(byte z=0;z<xSize;z++){
 				for(byte y=0;y<ySize;y++){
@@ -364,11 +412,20 @@ public class GremlinRunner {
 		* Fixes the global variable values at the start of the program
 		*/
 	public static void fixValues() {
-		size = utility.getIntFromUser("Enter an odd number for size"
-										+ "\n(from 9-25) ideally \nrecommended size is 11");
+
+		try{
+		size = Integer.parseInt(utility.getStringFromUser("Enter an odd number for size"
+										+ "\n(from 9-25) ideally \nrecommended size is 11\n"
+										+ "to follow all recommended settings type nothing"));
+					gremlinDensity=utility.getIntFromUser(
+										"How many gremlins per hundred squares "
+																		+ "do you want\nrecommended is 15");
 		areGremlins=utility.
-										getStringFromUser("Do you want gremlins?(y/n)").equals("y");
+										getStringFromUser("Do you want gremlins?(y/n)\n"
+																		+ "recommended is y (yes)").equals("y");
 		numberOfGremlins=0;
+		window=utility.getIntFromUser("What render distance would you like?"
+										+ "\nrecommended is 2 squares");
 		gremlins=new ArrayList(1);
 //"w" is the 4th dimension if used
 		wSize = 1;
@@ -385,6 +442,28 @@ public class GremlinRunner {
 		maze = new byte[wSize][zSize][ySize][xSize];
 		//the nodes for use in the algorithm to make a perfect maze
 		nodes = new ArrayList(1);
-		
+		}catch(Exception defaultSettings){
+				size = 11;
+				gremlinDensity=15;
+		areGremlins=true;
+		numberOfGremlins=0;
+		window=2;
+		gremlins=new ArrayList(1);
+//"w" is the 4th dimension if used
+		wSize = 1;
+		//these are the dimensions
+		zSize = size;
+		ySize = size;
+		xSize = size;
+		//start positions
+		position[0] = 0;
+		position[1]=1;
+		position[2]=1;
+		position[3]=1;
+		//4d maze
+		maze = new byte[wSize][zSize][ySize][xSize];
+		//the nodes for use in the algorithm to make a perfect maze
+		nodes = new ArrayList(1);
+		}
 	}
 }
