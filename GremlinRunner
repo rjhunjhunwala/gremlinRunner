@@ -99,8 +99,8 @@ public	static int xSize = size;
 		boolean alive=true;
 		while (!(position[1]==size-2&&position[2]==size-2&&position[3]==size-2)&&
 										alive) {
-			dispPosition(window);
-			//dispWholeMaze();//if the maze is really small this method is here
+			//dispPosition(window);
+			dispWholeMaze();//if the maze is really small this method is here
 			//just because
 			System.out.println(Arrays.toString(position));
 			char move = ' ';
@@ -347,8 +347,10 @@ public	static int xSize = size;
 					System.out.print("[W]");
 				} else if (b == 1) {
 					System.out.print("[ ]");
-				} else {
+				} else if(b==2) {
 					System.out.print("[☺]");
+				}else {
+					System.out.print("[!]");
 				}
 			}
 			System.out.println();
@@ -417,12 +419,15 @@ public	static int xSize = size;
 		size = Integer.parseInt(utility.getStringFromUser("Enter an odd number for size"
 										+ "\n(from 9-25) ideally \nrecommended size is 11\n"
 										+ "to follow all recommended settings type nothing"));
-					gremlinDensity=utility.getIntFromUser(
-										"How many gremlins per hundred squares "
-																		+ "do you want\nrecommended is 15");
-		areGremlins=utility.
+						areGremlins=utility.
 										getStringFromUser("Do you want gremlins?(y/n)\n"
 																		+ "recommended is y (yes)").equals("y");
+		if(areGremlins) {
+			gremlinDensity=utility.getIntFromUser(
+											"How many gremlins per hundred squares "
+																			+ "do you want\nrecommended is 15");
+		}
+	
 		numberOfGremlins=0;
 		window=utility.getIntFromUser("What render distance would you like?"
 										+ "\nrecommended is 2 squares");
