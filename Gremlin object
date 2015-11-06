@@ -16,9 +16,17 @@ public class Gremlin {
 	 */
 	public static final byte gremlinRange = 1;
 
-
+/**
+	* the coordinates of the gremlin
+	*/
 private	byte[] coord;
-
+/**
+	* Makes a gremlin
+	* @param x x coordinate
+	* @param y y coordinate 
+	* @param z z coordinate
+	* the maze could be 4d but for now w is always 0
+	*/
 	Gremlin(byte x, byte y, byte z) {
 		byte w = 0; //only 3d for now
 		coord = new byte[4];
@@ -31,7 +39,7 @@ private	byte[] coord;
 
 
 	/**
-	 * This gremlin walk in some random orthagonal direction
+	 * This gremlin walk in some random orthogonal direction
 	 */
 	public void move() {
 		int counter = 0;
@@ -109,19 +117,16 @@ private	byte[] coord;
 	}
 
 	/**
-	 * Gremlin does its attack
+	 * Gremlin does its attack (if it can)
 	 */
 	public void doAttack() {
-		try {
-		} catch (Exception easdsa) {
-		}
 		try {
 			if (GremlinRunner.maze[coord[0] + 1][coord[1]][coord[2]][coord[3]] == 2) {
 				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
 				GremlinRunner.maze[coord[0] + 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
 				coord[0] += 1;
 			}
-		} catch (Exception easdsa) {
+		} catch (Exception thatSquareDoesntExist) {
 		}
 		try {
 			if (GremlinRunner.maze[coord[0] - 1][coord[1]][coord[2]][coord[3]] == 2) {
@@ -129,7 +134,7 @@ private	byte[] coord;
 				GremlinRunner.maze[coord[0] - 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
 				coord[0] -= 1;
 			}
-		} catch (Exception easdsa) {
+		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
@@ -138,7 +143,7 @@ private	byte[] coord;
 				GremlinRunner.maze[coord[0]][coord[1] + 1][coord[2]][coord[3]] = (byte) 127;
 				coord[1] += 1;
 			}
-		} catch (Exception easdsa) {
+		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
@@ -147,7 +152,7 @@ private	byte[] coord;
 				GremlinRunner.maze[coord[0]][coord[1] - 1][coord[2]][coord[3]] = (byte) 127;
 				coord[1] -= 1;
 			}
-		} catch (Exception easdsa) {
+		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
@@ -156,7 +161,7 @@ private	byte[] coord;
 				GremlinRunner.maze[coord[0]][coord[1]][coord[2] + 1][coord[3]] = (byte) 127;
 				coord[2] += 1;
 			}
-		} catch (Exception easdsa) {
+		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
@@ -165,7 +170,7 @@ private	byte[] coord;
 				GremlinRunner.maze[coord[0]][coord[1]][coord[2] - 1][coord[3]] = (byte) 127;
 				coord[2] -= 1;
 			}
-		} catch (Exception easdsa) {
+		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
@@ -175,7 +180,7 @@ private	byte[] coord;
 
 				coord[3] += 1;
 			}
-		} catch (Exception easdsa) {
+		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
@@ -184,18 +189,21 @@ private	byte[] coord;
 				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] - 1] = (byte) 127;
 				coord[3] -= 1;
 			}
-		} catch (Exception easdsa) {
+		} catch (Exception thatSquareDoesntExist) {
 		}
 
 	}
 /**
 	*Every turn the Gremlin tries to attack (if it can) and then moves
-	* it gets sent to a fictional location if its dead 
+	* it gets sent to a fictional location (one way off the board) if its dead
+	* the gremlin can not move because its move method just throws an exception 
+	* and catches it when it does
+	* almost like a gremlin prison
 	*/
 	public void takeTurn() {
 		try{
 		if(GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]]!=127){
-			//im dead 
+//im dead 
 			byte[] coordsDead={-127,-127,-127,-127};
 			coord=coordsDead.clone();
 		}
