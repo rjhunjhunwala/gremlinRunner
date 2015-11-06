@@ -150,7 +150,7 @@ public	static int xSize = size;
 	}
 	/**
 		*
-		* outdated method used for modeling a past tic tac toe game ignore
+		* outdated method used for modeling a past minesweeper game ignore
 		*/
 	/*
 	public static void dispBoardNicely(byte[][][] myGuesses, int size) {
@@ -178,12 +178,12 @@ public	static int xSize = size;
 	*/
 	/**
 		*
-		* @param get i know its poorly named it is the original node
+		* @param node
 		* from which its looking for nodes to grow to
 		* if it fails it deletes this node from the list of nodes its growing to
 		* otherwise it adds the first random node it finds
 		*/
-	public static void findNewNode(byte[] get) {
+	public static void findNewNode(byte[] node) {
 		boolean done = false;
 		int counter = 0;
 		int choice;
@@ -195,59 +195,59 @@ public	static int xSize = size;
 			}
 			try {
 				if (choice == 0) {
-					if (maze[get[0] + 2][get[1]][get[2]][get[3]] == 0) {
-						maze[get[0] + 2][get[1]][get[2]][get[3]] = 1;
-						maze[get[0] + 1][get[1]][get[2]][get[3]] = 1;
-						get[0] += 2;
+					if (maze[node[0] + 2][node[1]][node[2]][node[3]] == 0) {
+						maze[node[0] + 2][node[1]][node[2]][node[3]] = 1;
+						maze[node[0] + 1][node[1]][node[2]][node[3]] = 1;
+						node[0] += 2;
 						done = true;
 					}
 				} else if (choice == 1) {
-					if (maze[get[0] - 2][get[1]][get[2]][get[3]] == 0) {
-						maze[get[0] - 2][get[1]][get[2]][get[3]] = 1;
-						maze[get[0] - 1][get[1]][get[2]][get[3]] = 1;
-						get[0] -= 2;
+					if (maze[node[0] - 2][node[1]][node[2]][node[3]] == 0) {
+						maze[node[0] - 2][node[1]][node[2]][node[3]] = 1;
+						maze[node[0] - 1][node[1]][node[2]][node[3]] = 1;
+						node[0] -= 2;
 						done = true;
 					}
 				} else if (choice == 2) {
-					if (maze[get[0]][get[1] + 2][get[2]][get[3]] == 0) {
-						maze[get[0]][get[1] + 2][get[2]][get[3]] = 1;
-						maze[get[0]][get[1] + 1][get[2]][get[3]] = 1;
-						get[1] += 2;
+					if (maze[node[0]][node[1] + 2][node[2]][node[3]] == 0) {
+						maze[node[0]][node[1] + 2][node[2]][node[3]] = 1;
+						maze[node[0]][node[1] + 1][node[2]][node[3]] = 1;
+						node[1] += 2;
 						done = true;
 					}
 				} else if (choice == 3) {
-					if (maze[get[0]][get[1] - 2][get[2]][get[3]] == 0) {
-						maze[get[0]][get[1] - 2][get[2]][get[3]] = 1;
-						maze[get[0]][get[1] - 1][get[2]][get[3]] = 1;
-						get[1] -= 2;
+					if (maze[node[0]][node[1] - 2][node[2]][node[3]] == 0) {
+						maze[node[0]][node[1] - 2][node[2]][node[3]] = 1;
+						maze[node[0]][node[1] - 1][node[2]][node[3]] = 1;
+						node[1] -= 2;
 						done = true;
 					}
 				} else if (choice == 4) {
-					if (maze[get[0]][get[1]][get[2] + 2][get[3]] == 0) {
-						maze[get[0]][get[1]][get[2] + 2][get[3]] = 1;
-						maze[get[0]][get[1]][get[2] + 1][get[3]] = 1;
-						get[2] += 2;
+					if (maze[node[0]][node[1]][node[2] + 2][node[3]] == 0) {
+						maze[node[0]][node[1]][node[2] + 2][node[3]] = 1;
+						maze[node[0]][node[1]][node[2] + 1][node[3]] = 1;
+						node[2] += 2;
 						done = true;
 					}
 				} else if (choice == 5) {
-					if (maze[get[0]][get[1]][get[2] - 2][get[3]] == 0) {
-						maze[get[0]][get[1]][get[2] - 2][get[3]] = 1;
-						maze[get[0]][get[1]][get[2] - 1][get[3]] = 1;
-						get[2] -= 2;
+					if (maze[node[0]][node[1]][node[2] - 2][node[3]] == 0) {
+						maze[node[0]][node[1]][node[2] - 2][node[3]] = 1;
+						maze[node[0]][node[1]][node[2] - 1][node[3]] = 1;
+						node[2] -= 2;
 						done = true;
 					}
 				} else if (choice == 6) {
-					if (maze[get[0]][get[1]][get[2]][get[3] + 2] == 0) {
-						maze[get[0]][get[1]][get[2]][get[3] + 2] = 1;
-						maze[get[0]][get[1]][get[2]][get[3] + 1] = 1;
-						get[3] += 2;
+					if (maze[node[0]][node[1]][node[2]][node[3] + 2] == 0) {
+						maze[node[0]][node[1]][node[2]][node[3] + 2] = 1;
+						maze[node[0]][node[1]][node[2]][node[3] + 1] = 1;
+						node[3] += 2;
 						done = true;
 					}
 				} else if (choice == 7) {
-					if (maze[get[0]][get[1]][get[2]][get[3] - 2] == 0) {
-						maze[get[0]][get[1]][get[2]][get[3] - 2] = 1;
-						maze[get[0]][get[1]][get[2]][get[3] - 1] = 1;
-						get[3] -= 2;
+					if (maze[node[0]][node[1]][node[2]][node[3] - 2] == 0) {
+						maze[node[0]][node[1]][node[2]][node[3] - 2] = 1;
+						maze[node[0]][node[1]][node[2]][node[3] - 1] = 1;
+						node[3] -= 2;
 						done = true;
 					}
 				} else if (choice == 8) {//wait a second there are no choices left
@@ -261,7 +261,7 @@ public	static int xSize = size;
 			}
 			counter++;
 		}
-		byte[] cloned = get.clone();
+		byte[] cloned = node.clone();
 		nodes.add(cloned);
 		
 	}
