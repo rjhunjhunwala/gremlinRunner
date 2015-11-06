@@ -15,6 +15,8 @@ import java.util.Arrays;
 public class GremlinRunner {
 //if the size is even the maze will not be nively contained
 	static int size;
+	//if the user wants gremlins this is true
+	public static boolean areGremlins;
 	public static int numberOfGremlins=0;
 	public static ArrayList<Gremlin> gremlins=new ArrayList();
 //"w" is the 4th dimension
@@ -329,6 +331,7 @@ public class GremlinRunner {
 		* the gremlinDensity is how dense the gremlins are
 		*/
 	public static void makeGremlins() {
+		if(areGremlins){
 		int gremlinDensity=utility.getIntFromUser(
 										"How many gremlins per hundred squares "
 																		+ "do you want\nrecommended is 18");
@@ -344,6 +347,7 @@ public class GremlinRunner {
 					}
 				}
 			}
+		}
 		}
 	}
 	/**
@@ -362,6 +366,8 @@ public class GremlinRunner {
 	public static void fixValues() {
 		size = utility.getIntFromUser("Enter an odd number for size"
 										+ "\n(from 9-25) ideally \nrecommended size is 11");
+		areGremlins=utility.
+										getStringFromUser("Do you want gremlins?(y/n)").equals("y");
 		numberOfGremlins=0;
 		gremlins=new ArrayList(1);
 //"w" is the 4th dimension if used
