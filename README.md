@@ -9,3 +9,4 @@ the finish line is in the bottom corner and is an f
 NOTE 
 - In the code there are many references to the fourth dimension. The framework supports the fourth dimension although it would simply be impractical to use it
 - The intent was to be a four dimensional game but just three dimensions is tough to display and conceptualize
+- feel free to give suggestions for improvement or complaints
