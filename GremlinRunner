@@ -1,1 +1,304 @@
+@@ -150,7 +150,7 @@ public	static int xSize = size;
+ 	}
+ 	/**
+ 		*
+	* outdated method used for modeling a past minesweeper game ignore
+ 		*/
+ 	/*
+ 	public static void dispBoardNicely(byte[][][] myGuesses, int size) {
+ @@ -178,12 +178,12 @@ public	static int xSize = size;
+ 	*/
+ 	/**
+ 		*
+	* @param node
+ 		* from which its looking for nodes to grow to
+ 		* if it fails it deletes this node from the list of nodes its growing to
+ 		* otherwise it adds the first random node it finds
+ 		*/
 
+	public static void findNewNode(byte[] node) {
+ 		boolean done = false;
+ 		int counter = 0;
+ 		int choice;
+ @@ -195,59 +195,59 @@ public	static int xSize = size;
+ 			}
+ 			try {
+ 				if (choice == 0) {
+
+			if (maze[node[0] + 2][node[1]][node[2]][node[3]] == 0) {
+				maze[node[0] + 2][node[1]][node[2]][node[3]] = 1;
+			maze[node[0] + 1][node[1]][node[2]][node[3]] = 1;
+				node[0] += 2;
+ 						done = true;
+ 					}
+ 				} else if (choice == 1) {
+			if (maze[node[0] - 2][node[1]][node[2]][node[3]] == 0) {
+				maze[node[0] - 2][node[1]][node[2]][node[3]] = 1;
+				maze[node[0] - 1][node[1]][node[2]][node[3]] = 1;
+				node[0] -= 2;
+ 						done = true;
+ 					}
+ 				} else if (choice == 2) {
+
+			if (maze[node[0]][node[1] + 2][node[2]][node[3]] == 0) {
+				maze[node[0]][node[1] + 2][node[2]][node[3]] = 1;
+			maze[node[0]][node[1] + 1][node[2]][node[3]] = 1;
+				node[1] += 2;
+ 						done = true;
+ 					}
+ 				} else if (choice == 3) {
+
+				if (maze[node[0]][node[1] - 2][node[2]][node[3]] == 0) {
+				maze[node[0]][node[1] - 2][node[2]][node[3]] = 1;
+				maze[node[0]][node[1] - 1][node[2]][node[3]] = 1;
+				node[1] -= 2;
+ 						done = true;
+ 					}
+ 				} else if (choice == 4) {
+
+			if (maze[node[0]][node[1]][node[2] + 2][node[3]] == 0) {
+				maze[node[0]][node[1]][node[2] + 2][node[3]] = 1;
+				maze[node[0]][node[1]][node[2] + 1][node[3]] = 1;
+			node[2] += 2;
+ 						done = true;
+ 					}
+ 				} else if (choice == 5) {
+
+				if (maze[node[0]][node[1]][node[2] - 2][node[3]] == 0) {
+					maze[node[0]][node[1]][node[2] - 2][node[3]] = 1;
+					maze[node[0]][node[1]][node[2] - 1][node[3]] = 1;
+					node[2] -= 2;
+ 						done = true;
+ 					}
+ 				} else if (choice == 6) {
+
+				if (maze[node[0]][node[1]][node[2]][node[3] + 2] == 0) {
+				maze[node[0]][node[1]][node[2]][node[3] + 2] = 1;
+				maze[node[0]][node[1]][node[2]][node[3] + 1] = 1;
+					node[3] += 2;
+ 						done = true;
+ 					}
+ 				} else if (choice == 7) {
+
+				if (maze[node[0]][node[1]][node[2]][node[3] - 2] == 0) {
+				maze[node[0]][node[1]][node[2]][node[3] - 2] = 1;
+				maze[node[0]][node[1]][node[2]][node[3] - 1] = 1;
+				node[3] -= 2;
+ 						done = true;
+ 					}
+ 				} else if (choice == 8) {//wait a second there are no choices left
+ @@ -261,7 +261,7 @@ public	static int xSize = size;
+ 			}
+ 			counter++;
+ 		}
+	byte[] cloned = node.clone();
+ 		nodes.add(cloned);
+ 		
+ 	}
+ 	/**
+ 		* makes a user move
+ 		* @param move is a character w a s d r to go up v to go down
+ 		*/
+ 	public static void makeMove(char move) {
+ 		byte[] tempPosition = position.clone();
+ 		try {
+ 			maze[0][position[1]][position[2]][position[3]] = 1;
+ 			if (move == 'w') {
+ 				position[2] -= 1;
+ 			} else if (move == 's') {
+ 				position[2] += 1;
+ 			} else if (move == 'a') {
+ 				position[3] -= 1;
+ 			} else if (move == 'd') {
+ 				position[3] += 1;
+ 			} else if (move == 'r') {
+ 				position[1] -= 1;
+ 			} else if (move == 'v') {
+ 				position[1] += 1;
+ 			}
+ 			if (maze[0][position[1]][position[2]][position[3]] != 0) {
+ 				// the square is empty he is good to go
+ 				maze[0][position[1]][position[2]][position[3]] = 2;
+ 			} else {
+ 				//just an excuse to go to the exception area so that the move isnt
+ 				// if the square is occupied
+ 				maze[0][tempPosition[1]][tempPosition[2]][tempPosition[3]] = 2;
+ 				position = tempPosition.clone();
+ 			}
+ 			
+ 		} catch (Exception e) {
+ 			//he tried to move to a nonexistent or occupied square
+ 			maze[0][tempPosition[1]][tempPosition[2]][tempPosition[3]] = 2;
+ 			position = tempPosition.clone();
+ 		}
+ 	}
+ 	/**
+ 		* prints to console the area around the player "P"
+ 		* @param renderDistance render distance around it
+ 		*/
+ 	public static void dispPosition(int renderDistance) {
+ 		for (int z = position[1] - renderDistance; 
+ 										z <= position[1] + renderDistance; z++) {
+ 			for (int y = position[2] - renderDistance; 
+ 											y <= position[2] + renderDistance; y++) {
+ 				for (int x = position[3] - renderDistance; 
+ 												x <= position[3] + renderDistance; x++) {
+ 					String symbol = "[!]"; //its a gremlin unless its one of the others
+ 					// a gremlin has code 127
+ 					try {
+ 						if (maze[0][z][y][x] == 1) {
+ 							symbol = "[ ]";//pasage
+ 						} else if (maze[0][z][y][x] == 2) {
+ 							symbol = "[P]";//player
+ 						} else if (maze[0][z][y][x] == 0) {
+ 							symbol = "[W]";//wall
+ 						}else if(maze[0][z][y][x]==3){
+ 							symbol="[F]";//Finish line
+ 						}
+ 					} catch (Exception e) {
+ // Render walls all around the maze
+ 						symbol = "[W]";
+ 					}
+ 					System.out.print(symbol);
+ 				}
+ 				System.out.println();
+ 			}
+ 			System.out.println("\n");
+ 		}
+ 	}
+ 	/**
+ 		* displays one layer of the maze
+ 		* @param inMaze maze taken in
+ 		*/
+ 	public static void dispMaze(byte[][] inMaze) {
+ 		for (byte[] a : inMaze) {
+ 			for (byte b : a) {
+ 				if (b == 0) {
+ 					System.out.print("[W]");
+ 				} else if (b == 1) {
+ 					System.out.print("[ ]");
+ 				} else if(b==2) {
+ 					System.out.print("[☺]");
+ 				}else {
+ 					System.out.print("[!]");
+ 				}
+ 			}
+ 			System.out.println();
+ 		}
+ 	}
+ 	/**
+ 		* makes the little 3 by 3 by 3 hole in the middle of the maze
+ 		* Almost like the glade in maze runner
+ 		* By glade radius it means the farthest distance away from the center cube
+ 		* the glade extends rounded down to the nearest integer
+ 		*/
+ 	public static void makeGlade() {
+ 		int d=1;//glade "radius"
+ 		for (int z = size/2 - d; z <= size/2 + d; z++) {
+ 			for (int y = size/2 - d; y <= size/2 + d; y++) {
+ 				for (int x = size/2 - d; x <= size/2 + d; x++) {
+ 					try {
+ 						maze[0][z][y][x]=1;
+ 					} catch (Exception e) {
+ 						//what?? this shouldnt happen unless
+ 						//the user doesnt know what an number 9-25 is
+ 						
+ 					}
+ 				}
+ 			}
+ 		}
+ 		
+ 	}
+ 	/**
+ 		* Randomly spawns gremlins at random points in the map
+ 		* the gremlinDensity is how dense the gremlins are
+ 		*/
+ 	public static void makeGremlins() {
+ 		if(areGremlins){
+ 		for(byte w=0;w<wSize;w++) {
+ 			for(byte z=0;z<xSize;z++){
+ 				for(byte y=0;y<ySize;y++){
+ 					for(byte x=0;x<zSize;x++){
+ 						if(utility.getRandom(100)<=gremlinDensity&&maze[w][z][y][x]==1){
+ 							Gremlin someNewGremlin=new Gremlin(x,y,z);
+ 							gremlins.add(someNewGremlin);
+ 							numberOfGremlins++;
+ 						}
+ 					}
+ 				}
+ 			}
+ 		}
+ 		}
+ 	}
+ 	/**
+ 		* Has each gremlin do its thing
+ 		* take turn involves (trying to) attack and move
+ 		*/
+ 	public static void doGremlins() {
+ 		for(Gremlin scaryGremlin:gremlins){
+ 			scaryGremlin.takeTurn();
+ 		}
+ 	}
+ 	
+ 	/**
+ 		* Fixes the global variable values at the start of the program
+ 		*/
+ 	public static void fixValues() {
+ 
+ 		try{
+ 		size = Integer.parseInt(utility.getStringFromUser("Enter an odd number for size"
+ 										+ "\n(from 9-25) ideally \nrecommended size is 11\n"
+ 										+ "to follow all recommended settings type nothing"));
+ 						areGremlins=utility.
+ 										getStringFromUser("Do you want gremlins?(y/n)\n"
+ 																		+ "recommended is y (yes)").equals("y");
+ 		if(areGremlins) {
+ 			gremlinDensity=utility.getIntFromUser(
+ 											"How many gremlins per hundred squares "
+ 																			+ "do you want\nrecommended is 15");
+ 		}
+ 	
+ 		numberOfGremlins=0;
+ 		window=utility.getIntFromUser("What render distance would you like?"
+ 										+ "\nrecommended is 2 squares");
+ 		gremlins=new ArrayList(1);
+ //"w" is the 4th dimension if used
+ 		wSize = 1;
+ 		//these are the dimensions
+ 		zSize = size;
+ 		ySize = size;
+ 		xSize = size;
+ 		//start positions
+ 		position[0] = 0;
+ 		position[1]=1;
+ 		position[2]=1;
+ 		position[3]=1;
+ 		//4d maze
+ 		maze = new byte[wSize][zSize][ySize][xSize];
+ 		//the nodes for use in the algorithm to make a perfect maze
+ 		nodes = new ArrayList(1);
+ 		}catch(Exception defaultSettings){
+ 				size = 11;
+ 				gremlinDensity=15;
+ 		areGremlins=true;
+ 		numberOfGremlins=0;
+ 		window=2;
+ 		gremlins=new ArrayList(1);
+ //"w" is the 4th dimension if used
+ 		wSize = 1;
+ 		//these are the dimensions
+ 		zSize = size;
+ 		ySize = size;
+ 		xSize = size;
+ 		//start positions
+ 		position[0] = 0;
+ 		position[1]=1;
+ 		position[2]=1;
+ 		position[3]=1;
+ 		//4d maze
+ 		maze = new byte[wSize][zSize][ySize][xSize];
+ 		//the nodes for use in the algorithm to make a perfect maze
+ 		nodes = new ArrayList(1);
+ 		}
+ 	}
+ }
