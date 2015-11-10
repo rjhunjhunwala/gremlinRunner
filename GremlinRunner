@@ -411,9 +411,9 @@ gui.getStringFromPopUp("You survived the labyrinth");
 		xSize = size;
 		//start positions
 		position[0] = 0;
-		position[1]=1;
-		position[2]=1;
-		position[3]=1;
+		position[1]=0;
+		position[2]=0;
+		position[3]=0;
 		//4d maze
 		maze = new byte[wSize][zSize][ySize][xSize];
 		//the nodes for use in the algorithm to make a perfect maze
