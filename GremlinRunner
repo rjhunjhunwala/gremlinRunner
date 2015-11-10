@@ -109,8 +109,14 @@ public	static int xSize = size;
 	gui.mainMethod();
 alive=true;
 while(alive){
+	if(maze[0][position[1]][position[2]][position[3]]==3){
+		break;
+	}
+	else
+	{
 	System.out.print("");
-	//dont ask! java doesnt work without this line!!!!!!!!!!!!!!!
+	}	
+//dont ask! java doesnt work without this line!!!!!!!!!!!!!!!
 }
 		if(!alive){
 gui.getStringFromPopUp("A gremlin slaughtered you");
@@ -397,7 +403,7 @@ gui.getStringFromPopUp("You survived the labyrinth");
 		}
 		catch(Exception defaultSettings){
 			size = 9;
-		gremlinDensity=15;
+		gremlinDensity=85;
 		areGremlins=true;
 	}
 		finally{	numberOfGremlins=0;
