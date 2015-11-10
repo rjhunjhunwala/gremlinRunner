@@ -109,7 +109,7 @@ public	static int xSize = size;
 	gui.mainMethod();
 alive=true;
 while(alive){
-	if(maze[0][position[1]][position[2]][position[3]]==3){
+	if(position[1]==size-1&&position[2]==size-1&&position[3]==size-1){
 		break;
 	}
 	else
