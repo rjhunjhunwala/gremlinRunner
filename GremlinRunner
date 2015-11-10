@@ -403,7 +403,7 @@ gui.getStringFromPopUp("You survived the labyrinth");
 		}
 		catch(Exception defaultSettings){
 			size = 9;
-		gremlinDensity=85;
+		gremlinDensity=15;
 		areGremlins=true;
 	}
 		finally{	numberOfGremlins=0;
