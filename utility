@@ -59,49 +59,6 @@ Random r = new Random();
 		Scanner sc = new Scanner(System.in);
 		return (sc.nextInt());
 	}
-
-	/**
-	 *From Stack overflow question on reversing arrays
-	 * @param nums array to be reverse
-	 * @return reversed array
-	 */
-	public static int[] reverse(int[] nums) {
-		int[] reversed = new int[nums.length];
-		for (int i = 0; i < nums.length; i++) {
-			reversed[i] = nums[nums.length - 1 - i];
-		}
-		return reversed;
-	}
-
-	/**
-	 * Removes duplicates
-	 * From Stack overflow question on how to remove duplicates
-	 * @param arr is an array to remove duplicates
-	 * @return an array without duplicates
-	 */
-	public static int[] removeDuplicates(int[] arr) {
-
-		int end = arr.length;
-
-		for (int i = 0; i < end; i++) {
-			for (int j = i + 1; j < end; j++) {
-				if (arr[i] == arr[j]) {
-					int shiftLeft = j;
-					for (int k = j + 1; k < end; k++, shiftLeft++) {
-						arr[shiftLeft] = arr[k];
-					}
-					end--;
-					j--;
-				}
-			}
-		}
-
-		int[] whitelist = new int[end];
-		for (int i = 0; i < end; i++) {
-			whitelist[i] = arr[i];
-		}
-		return whitelist;
-	}
 }
 
 
