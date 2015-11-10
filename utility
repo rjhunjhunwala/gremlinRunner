@@ -2,7 +2,6 @@ package gremlinrunner;
 /**
 	* This is a utility class for any program 
 	* Some things here are generic code 
-	* Some are also taken from Stack overflow questions 
 	* I do not claim ownership of this class 
 	*/
 
