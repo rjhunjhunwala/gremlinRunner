@@ -5,11 +5,15 @@
  */
 package gremlinrunner;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte0.runnable;
+
 /**
  *
  * @author rohan
  */
-public class Gremlin {
+public class Gremlin  {
 	//these are the gremlins running around the map
 	/**
 	 * The amount of steps a gremlin will move
@@ -42,6 +46,7 @@ private	byte[] coord;
 	 * This gremlin walk in some random orthogonal direction
 	 */
 	public void move() {
+		byte[][][][] tempMaze=GremlinRunner.maze.clone();
 		int counter = 0;
 		int choice = 8;
 		movementBlock:
@@ -49,58 +54,58 @@ private	byte[] coord;
 			try {
 				choice = utility.getRandom(8);
 				if (choice == 0) {
-					if (GremlinRunner.maze[coord[0] + 1][coord[1]][coord[2]][coord[3]] == 1) {
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-						GremlinRunner.maze[coord[0] + 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
+					if (tempMaze[coord[0] + 1][coord[1]][coord[2]][coord[3]] == 1) {
+						tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						tempMaze[coord[0] + 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
 						coord[0] += 1;
 						break movementBlock;
 					}
 				} else if (choice == 1) {
-					if (GremlinRunner.maze[coord[0] - 1][coord[1]][coord[2]][coord[3]] == 1) {
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-						GremlinRunner.maze[coord[0] - 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
+					if (tempMaze[coord[0] - 1][coord[1]][coord[2]][coord[3]] == 1) {
+						tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						tempMaze[coord[0] - 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
 						coord[0] -= 1;
 											break movementBlock;
 					}
 				} else if (choice == 2) {
-					if (GremlinRunner.maze[coord[0]][coord[1] + 1][coord[2]][coord[3]] == 1) {
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-						GremlinRunner.maze[coord[0]][coord[1] + 1][coord[2]][coord[3]] = (byte) 127;
+					if (tempMaze[coord[0]][coord[1] + 1][coord[2]][coord[3]] == 1) {
+						tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						tempMaze[coord[0]][coord[1] + 1][coord[2]][coord[3]] = (byte) 127;
 						coord[1] += 1;
 											break movementBlock;
 					}
 				} else if (choice == 3) {
-					if (GremlinRunner.maze[coord[0]][coord[1] - 1][coord[2]][coord[3]] == 1) {
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-						GremlinRunner.maze[coord[0]][coord[1] - 1][coord[2]][coord[3]] = (byte) 127;
+					if (tempMaze[coord[0]][coord[1] - 1][coord[2]][coord[3]] == 1) {
+						tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						tempMaze[coord[0]][coord[1] - 1][coord[2]][coord[3]] = (byte) 127;
 						coord[1] -= 1;
 											break movementBlock;
 					}
 				} else if (choice == 4) {
-					if (GremlinRunner.maze[coord[0]][coord[1]][coord[2] + 1][coord[3]] == 1) {
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2] + 1][coord[3]] = (byte) 127;
+					if (tempMaze[coord[0]][coord[1]][coord[2] + 1][coord[3]] == 1) {
+						tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						tempMaze[coord[0]][coord[1]][coord[2] + 1][coord[3]] = (byte) 127;
 						coord[2] += 1;
 											break movementBlock;
 					}
 				} else if (choice == 5) {
-					if (GremlinRunner.maze[coord[0]][coord[1]][coord[2] - 1][coord[3]] ==1) {
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2] - 1][coord[3]] = (byte) 127;
+					if (tempMaze[coord[0]][coord[1]][coord[2] - 1][coord[3]] ==1) {
+						tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						tempMaze[coord[0]][coord[1]][coord[2] - 1][coord[3]] = (byte) 127;
 						coord[2] -= 1;
 											break movementBlock;
 					}
 				} else if (choice == 6) {
-					if (GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] + 1] == 1) {
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] + 1] = 127;
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+					if (tempMaze[coord[0]][coord[1]][coord[2]][coord[3] + 1] == 1) {
+						tempMaze[coord[0]][coord[1]][coord[2]][coord[3] + 1] = 127;
+						tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
 						coord[3] += 1;
 											break movementBlock;
 					}
 				} else if (choice == 7) {
-					if (GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] - 1] == 1) {
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-						GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] - 1] = (byte) 127;
+					if (tempMaze[coord[0]][coord[1]][coord[2]][coord[3] - 1] == 1) {
+						tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+						tempMaze[coord[0]][coord[1]][coord[2]][coord[3] - 1] = (byte) 127;
 						coord[3] -= 1;
 											break movementBlock;
 					}
@@ -119,79 +124,94 @@ private	byte[] coord;
 	/**
 	 * Gremlin does its attack (if it can)
 	 */
-	public void doAttack() {
+	public void doAttack()  {
+		byte[][][][] tempMaze=GremlinRunner.maze.clone();
 		try {
-			if (GremlinRunner.maze[coord[0] + 1][coord[1]][coord[2]][coord[3]] == 2) {
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-				GremlinRunner.maze[coord[0] + 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
+			if (tempMaze[coord[0] + 1][coord[1]][coord[2]][coord[3]] == 2) {
+				tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				tempMaze[coord[0] + 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
 				coord[0] += 1;
+			GremlinRunner.alive=false;
 			}
 		} catch (Exception thatSquareDoesntExist) {
 		}
 		try {
-			if (GremlinRunner.maze[coord[0] - 1][coord[1]][coord[2]][coord[3]] == 2) {
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-				GremlinRunner.maze[coord[0] - 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
+			if (tempMaze[coord[0] - 1][coord[1]][coord[2]][coord[3]] == 2) {
+				tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				tempMaze[coord[0] - 1][coord[1]][coord[2]][coord[3]] = (byte) 127;
 				coord[0] -= 1;
+						GremlinRunner.alive=false;
 			}
 		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
-			if (GremlinRunner.maze[coord[0]][coord[1] + 1][coord[2]][coord[3]] == 2) {
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-				GremlinRunner.maze[coord[0]][coord[1] + 1][coord[2]][coord[3]] = (byte) 127;
+			if (tempMaze[coord[0]][coord[1] + 1][coord[2]][coord[3]] == 2) {
+				tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				tempMaze[coord[0]][coord[1] + 1][coord[2]][coord[3]] = (byte) 127;
 				coord[1] += 1;
+						GremlinRunner.alive=false;
 			}
 		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
-			if (GremlinRunner.maze[coord[0]][coord[1] - 1][coord[2]][coord[3]] == 2) {
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-				GremlinRunner.maze[coord[0]][coord[1] - 1][coord[2]][coord[3]] = (byte) 127;
+			if (tempMaze[coord[0]][coord[1] - 1][coord[2]][coord[3]] == 2) {
+				tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				tempMaze[coord[0]][coord[1] - 1][coord[2]][coord[3]] = (byte) 127;
 				coord[1] -= 1;
+						GremlinRunner.alive=false;
 			}
 		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
-			if (GremlinRunner.maze[coord[0]][coord[1]][coord[2] + 1][coord[3]] == 2) {
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2] + 1][coord[3]] = (byte) 127;
+			if (tempMaze[coord[0]][coord[1]][coord[2] + 1][coord[3]] == 2) {
+				tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				tempMaze[coord[0]][coord[1]][coord[2] + 1][coord[3]] = (byte) 127;
 				coord[2] += 1;
+						GremlinRunner.alive=false;
 			}
 		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
-			if (GremlinRunner.maze[coord[0]][coord[1]][coord[2] - 1][coord[3]] == 2) {
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2] - 1][coord[3]] = (byte) 127;
+			if (tempMaze[coord[0]][coord[1]][coord[2] - 1][coord[3]] == 2) {
+				tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				tempMaze[coord[0]][coord[1]][coord[2] - 1][coord[3]] = (byte) 127;
 				coord[2] -= 1;
+						GremlinRunner.alive=false;
 			}
 		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
-			if (GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] + 1] == 2) {
-							GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] + 1] = 127;
+			if (tempMaze[coord[0]][coord[1]][coord[2]][coord[3] + 1] == 2) {
+							tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				tempMaze[coord[0]][coord[1]][coord[2]][coord[3] + 1] = 127;
 
 				coord[3] += 1;
+						GremlinRunner.alive=false;
 			}
 		} catch (Exception thatSquareDoesntExist) {
 		}
 
 		try {
-			if (GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] - 1] == 2) {
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
-				GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3] - 1] = (byte) 127;
+			if (tempMaze[coord[0]][coord[1]][coord[2]][coord[3] - 1] == 2) {
+				tempMaze[coord[0]][coord[1]][coord[2]][coord[3]] = 1;
+				tempMaze[coord[0]][coord[1]][coord[2]][coord[3] - 1] = (byte) 127;
 				coord[3] -= 1;
+						GremlinRunner.alive=false;
 			}
 		} catch (Exception thatSquareDoesntExist) {
 		}
-
+if(!GremlinRunner.alive){
+	GremlinRunner.alive=false;
+	JFRAME.isGoing=false;
+	Exception theUserIsDead=new Exception ("YOUR DEAD BUDDY");
+System.out.println("DEATH");
+//throw theUserIsDead;
+}
 	}
 /**
 	*Every turn the Gremlin tries to attack (if it can) and then moves
@@ -200,16 +220,17 @@ private	byte[] coord;
 	* and catches it when it does
 	* almost like a gremlin prison
 	*/
-	public void takeTurn() {
-		try{
-		if(GremlinRunner.maze[coord[0]][coord[1]][coord[2]][coord[3]]!=127){
+	public void takeTurn()  {
+		byte[][][][] tempMaze=GremlinRunner.maze.clone();
+	
+		if(coord[0]==-127||tempMaze[coord[0]][coord[1]][coord[2]][coord[3]]!=127){
 //im dead 
 			byte[] coordsDead={-127,-127,-127,-127};
 			coord=coordsDead.clone();
 		}
+		else{		
 		doAttack();
 		move();
-	}
-	catch(Exception dead){}
+		}
 }
 }
